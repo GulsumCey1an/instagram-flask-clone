@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>FotoApp</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-content">
+        <span class="navbar-logo">FotoApp</span>
+
+        <div class="navbar-icons">
+            <!-- DM -->
+            <a href="/dm" class="navbar-icon" title="Mesajlar">✉️</a>
+
+            <!-- PROFILE -->
+            <a href="/profile" title="Profil">
+                <img
+                    src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=40"
+                    style="width:28px; height:28px; border-radius:50%; object-fit:cover;"
+                >
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">
+<div class="main-content">
+
+<!-- ================= STORIES ================= -->
+<div class="stories-container">
+    <div class="stories-list">
+        {% for story in stories %}
+        <a href="/story/{{ story.id }}" class="story-item">
+    <div class="story-avatar">
+        <img src="{{ story.avatar }}" alt="{{ story.username }}">
+    </div>
+    <span class="story-username">{{ story.username }}</span>
+</a>
+
+        {% endfor %}
+    </div>
+</div>
+
+<!-- ================= POSTS ================= -->
+{% for post in posts %}
+<article class="post">
+
+    <div class="post-header">
+        <img src="{{ post.profile_image }}" class="post-avatar">
+        <span class="post-username">{{ post.username }}</span>
+    </div>
+
+    <img src="{{ post.image_url }}" class="post-image">
+
+    <div class="post-actions">
+        <form action="/like/{{ post.post_id }}" method="post">
+            <button class="post-action-btn like-btn" type="submit">❤️</button>
+        </form>
+    </div>
+
+    <div class="post-stats">
+        <div class="post-likes">{{ post.like_count }} beğenme</div>
+    </div>
+
+    <div class="post-caption">
+        <span class="post-caption-username">{{ post.username }}</span>
+        {{ post.caption }}
+    </div>
+
+    <div class="post-comments">
+        {% for c in comments.get(post.post_id, []) %}
+        <div class="post-comment">
+            <span class="post-comment-username">{{ c.username }}</span>
+            {{ c.text }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <form class="post-comment-form" action="/comment/{{ post.post_id }}" method="post">
+        <input class="post-comment-input" type="text" name="comment" placeholder="Yorum ekle..." required>
+        <button class="post-comment-submit" type="submit">Paylaş</button>
+    </form>
+
+</article>
+{% endfor %}
+
+</div>
+</div>
+
+</body>
+</html>

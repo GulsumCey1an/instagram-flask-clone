@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Story</title>
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .story-container {
+            text-align: center;
+        }
+
+        .story-username {
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .story-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            margin-top: 12px;
+            display: inline-block;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="story-container">
+    <div class="story-username">{{ username }}</div>
+    <img src="{{ media_url }}" class="story-image">
+    <br>
+    <a href="/" class="close-btn">← Geri dön</a>
+</div>
+
+</body>
+</html>

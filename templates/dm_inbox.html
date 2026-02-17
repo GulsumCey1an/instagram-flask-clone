@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mesajlar</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-content">
+        <a href="/" class="navbar-logo">← Geri</a>
+        <span>Mesajlar</span>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="main-content">
+
+        {% if threads|length == 0 %}
+            <p>Henüz mesaj yok.</p>
+        {% endif %}
+
+        <div class="post" style="padding:16px;">
+            {% for t in threads %}
+                <a href="/dm/{{ t.other_user_id }}"
+                   style="display:block; padding:12px; border-bottom:1px solid #262626; color:white; text-decoration:none;">
+                    <b>{{ t.other_username }}</b><br>
+                    <span style="color:#aaa; font-size:13px;">
+                        {{ t.text }}
+                    </span>
+                </a>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

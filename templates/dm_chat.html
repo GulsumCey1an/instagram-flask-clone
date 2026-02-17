@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sohbet</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body style="margin:0; background:#121212; color:white;">
+
+<!-- ÜST BAR -->
+<div style="padding:12px; border-bottom:1px solid #262626;">
+    <a href="/dm" style="color:white; text-decoration:none;">← Geri</a>
+</div>
+
+<!-- MESAJ ALANI -->
+<div id="chatArea" style="
+    padding:16px;
+    height:calc(100vh - 120px);
+    overflow-y:auto;
+    padding-bottom:90px;
+">
+    {% for m in messages %}
+        {% if m.sender_id == current_user_id %}
+            <div style="text-align:right; margin-bottom:10px;">
+                <span style="
+                    display:inline-block;
+                    background:#0095f6;
+                    padding:10px 14px;
+                    border-radius:18px;
+                    max-width:70%;
+                ">
+                    {{ m.text }}
+                </span>
+            </div>
+        {% else %}
+            <div style="text-align:left; margin-bottom:10px;">
+                <span style="
+                    display:inline-block;
+                    background:#2a2a2a;
+                    padding:10px 14px;
+                    border-radius:18px;
+                    max-width:70%;
+                ">
+                    {{ m.text }}
+                </span>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<!-- MESAJ YAZMA (ALTTA SABİT - GÖNDER BUTONU VAR) -->
+<form id="msgForm" method="POST" style="
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    padding:12px;
+    border-top:1px solid #262626;
+    background:#121212;
+    box-sizing:border-box;
+    display:flex;
+    gap:10px;
+">
+    <input
+        id="msgInput"
+        type="text"
+        name="message_text"
+        placeholder="Mesaj yaz..."
+        required
+        autocomplete="off"
+        style="
+            flex:1;
+            padding:12px 16px;
+            border-radius:20px;
+            border:none;
+            outline:none;
+            font-size:14px;
+            box-sizing:border-box;
+        "
+    >
+    <button
+        type="submit"
+        style="
+            padding:12px 18px;
+            border-radius:20px;
+            border:none;
+            background:#0095f6;
+            color:white;
+            font-size:14px;
+            cursor:pointer;
+        "
+    >
+        Gönder
+    </button>
+</form>
+
+<script>
+    // Enter ile gönder
+    const input = document.getElementById("msgInput");
+    const form = document.getElementById("msgForm");
+
+    input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            form.submit();
+        }
+    });
+
+    // Sayfa açılınca en alta scroll
+    const chatArea = document.getElementById("chatArea");
+    chatArea.scrollTop = chatArea.scrollHeight;
+</script>
+
+</body>
+</html>

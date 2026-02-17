@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Takipçiler</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="navbar-content">
+        <a href="/profile" class="navbar-logo">←</a>
+        <span>Takipçiler</span>
+    </div>
+</nav>
+
+<div class="container">
+<div class="main-content">
+
+    {% if followers|length == 0 %}
+        <p style="color:#aaa; text-align:center;">Henüz takipçi yok.</p>
+    {% endif %}
+
+    {% for f in followers %}
+    <div class="post" style="padding:16px; display:flex; align-items:center; gap:16px;">
+        <img
+            src="{{ f.profile_photo or 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200' }}"
+            style="width:48px; height:48px; border-radius:50%; object-fit:cover;"
+        >
+        <span><b>{{ f.username }}</b></span>
+    </div>
+    {% endfor %}
+
+</div>
+</div>
+
+</body>
+</html>
